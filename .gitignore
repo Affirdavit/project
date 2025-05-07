@@ -1,0 +1,11 @@
+# Virtual environment
+myvenv/
+#Byte-compiled files
+__pycache__/
+*/pyc
+# VS Code settings
+.vscode/
+# Mac System File
+.DS_Store
+# Environment file
+.env
