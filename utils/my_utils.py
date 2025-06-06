@@ -63,3 +63,18 @@ def reduce_mem_usage(df, verbose=True):
               f'({100 * (start_mem - end_mem) / start_mem:.1f}% reduction)')
 
     return df
+
+def create_time_weights(n_samples, decay_factor=0.95):
+    """
+    Create exponentially decaying weights based on sample position.
+    More recent samples (higher indices) get higher weights.
+    decay_factor controls the rate of decay (0.95 = 5% decay per time unit)
+    """
+    positions = np.arange(n_samples)
+    # Normalize positions to [0, 1] range
+    normalized_positions = positions / (n_samples - 1)
+    # Apply exponential weighting
+    weights = decay_factor ** (1 - normalized_positions)
+    # Normalize weights to sum to n_samples (maintains scale)
+    weights = weights * n_samples / weights.sum()
+    return weights
